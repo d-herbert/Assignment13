@@ -6,6 +6,7 @@ const $ = (id) => {
 const createSlideshow = function () {
     // PRIVATE VARIABLES AND FUNCTIONS
     let timer;
+    let speed = 2000
     let play = true;
     
     let nodes = { image: null, caption: null };
@@ -48,7 +49,7 @@ const createSlideshow = function () {
                 nodes.image = arguments[0];
                 nodes.caption = arguments[1];
             }
-            timer = setInterval(displayNextImage, 2000);
+            timer = setInterval(displayNextImage, speed);
             return this;
         },
         createToggleHandler: function () {
@@ -66,7 +67,20 @@ const createSlideshow = function () {
                 // TOGGLE PLAY 'FLAG'
                 play = !play;
             };
-        }
+        },
+        getSpeed: function () {
+            let nspeed = prompt(`enter slideshow speed. the current speed is ${speed} ms.`)
+            slideshow.setSpeed(speed=nspeed)
+            return nspeed
+        },
+        setSpeed: function (speed) {
+            if (arguments.length === 2) {
+                nodes.image = arguments[0];
+                nodes.caption = arguments[1];
+            }
+            timer = setInterval(displayNextImage, speed);
+            return this;
+        },
     };
 };
 
@@ -85,4 +99,8 @@ window.addEventListener('load', () => {
     slideshow.loadImages(slides).startSlideShow($('image'), $('caption'));
     // PAUSE THE SLIDESHOW
     $('play_pause').onclick = slideshow.createToggleHandler();
+    // set the speed
+    set_speed.addEventListener('click', function () {
+        slideshow.getSpeed()
+    })
 });
