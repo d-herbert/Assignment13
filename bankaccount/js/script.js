@@ -17,8 +17,7 @@ class bankAccount {
         return ownerName
     }
     getBalance() {
-        console.log(`${ownerName}'s balance is : ${balance}`)
-        return balance
+        document.getElementById("bal").innerHTML = `${ownerName}'s balance is : ${balance}`
     }
 }
 
